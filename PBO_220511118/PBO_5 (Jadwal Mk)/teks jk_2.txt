@@ -1,0 +1,18 @@
+MUHAMMAD HAFID ARIDWAN | 220511118 
+S1 TEKNIK INFORMATIKA | MAHASISWA UMC 
+
+========JADWAL KULIAH SEMESTER 3========
+
+SENIN	    SELASA	     RABU
+_____	    ______	     _____	
+  
+. AOK  	    . MPTI	    . KALKULUS
+. AIK 2     . PBO II	  . S.INFORMASI
+
+
+KAMIS     JUM'AT
+_____	  ______
+	    
+. LIBUR	  . KOMUNIKASI DATA
+	  . STATISTIK & PROBABILITAS
+	  . STRUKTUR DATA 	

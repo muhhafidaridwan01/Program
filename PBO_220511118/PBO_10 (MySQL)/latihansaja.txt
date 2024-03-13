@@ -1,0 +1,81 @@
+Microsoft Windows [Version 10.0.19045.3803]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\asus>cd\
+
+C:\>c:
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 10
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database farmasi;
+ERROR 1007 (HY000): Can't create database 'farmasi'; database exists
+MariaDB [(none)]> create database pesma;
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [(none)]> use pesma;
+Database changed
+MariaDB [pesma]> create table mahasiswa (
+    -> id int primary key auto_increment,
+    -> kdmhs varchar (10) unique,
+    -> nama varchar(100),
+    -> jk enum ('L','P'));
+Query OK, 0 rows affected (0.109 sec)
+
+MariaDB [pesma]> show tables;
++-----------------+
+| Tables_in_pesma |
++-----------------+
+| mahasiswa       |
++-----------------+
+1 row in set (0.002 sec)
+
+MariaDB [pesma]> insert into mahasiswa(kdmhs,nama,jk)values('220511118','Muhammad Hafid Aridwan','L');
+Query OK, 1 row affected (0.198 sec)
+
+MariaDB [pesma]> select*from mahasiswa;
++----+-----------+------------------------+------+
+| id | kdmhs     | nama                   | jk   |
++----+-----------+------------------------+------+
+|  1 | 220511118 | Muhammad Hafid Aridwan | L    |
++----+-----------+------------------------+------+
+1 row in set (0.001 sec)
+
+MariaDB [pesma]> insert into mahasiswa(kdmhs,nama,jk)values('220511119','Muhammad Ilham Ramdhani','L');
+Query OK, 1 row affected (0.008 sec)
+
+MariaDB [pesma]> insert into mahasiswa(kdmhs,nama,jk)values('220511120','Muhammad Friza Gustiadi','L');
+Query OK, 1 row affected (0.007 sec)
+
+MariaDB [pesma]> insert into mahasiswa(kdmhs,nama,jk)values('220511121','Muhammad Dio Nugraha','L');
+Query OK, 1 row affected (0.010 sec)
+
+MariaDB [pesma]> insert into mahasiswa(kdmhs,nama,jk)values('220511122','Muhammad Fikri Ali','L');
+Query OK, 1 row affected (0.008 sec)
+
+MariaDB [pesma]> select * from mahasiswa;
++----+-----------+-------------------------+------+
+| id | kdmhs     | nama                    | jk   |
++----+-----------+-------------------------+------+
+|  1 | 220511118 | Muhammad Hafid Aridwan  | L    |
+|  2 | 220511119 | Muhammad Ilham Ramdhani | L    |
+|  3 | 220511120 | Muhammad Friza Gustiadi | L    |
+|  4 | 220511121 | Muhammad Dio Nugraha    | L    |
+|  5 | 220511122 | Muhammad Fikri Ali      | L    |
++----+-----------+-------------------------+------+
+5 rows in set (0.001 sec)
+
+MariaDB [pesma]>
