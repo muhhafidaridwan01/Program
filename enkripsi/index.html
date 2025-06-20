@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KriptoGraphy</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f0f2f5; display: flex; }
+    .sidebar {
+      width: 220px;
+      background: #111827;
+      color: white;
+      height: 100vh;
+      padding: 20px 10px;
+    }
+    .sidebar h2 { font-size: 20px; margin-bottom: 30px; text-align: center; }
+    .sidebar a {
+      display: block;
+      padding: 10px 20px;
+      color: #f9fafb;
+      text-decoration: none;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+    .sidebar a:hover {
+      background: #374151;
+    }
+    .main {
+      flex-grow: 1;
+      padding: 20px;
+    }
+    header {
+      background: #3b82f6;
+      padding: 15px 20px;
+      color: white;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .content {
+      margin-top: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    label, input, textarea, select, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    input, textarea, select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    .output {
+      background: #f1f5f9;
+      padding: 10px;
+      border-radius: 6px;
+      word-break: break-word;
+      margin-top: 10px;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      margin-top: 40px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>KriptoGraphy</h2>
+    <a href="#" onclick="setMode('encrypt')">🔐 ENKRIPSI</a>
+    <a href="#" onclick="setMode('decrypt')">🔓 DEKRIPSI</a>
+  </div>
+  <div class="main">
+    <header>
+      <span>Enkripsi XOR ASCII dengan Custom Key String</span>
+      <span>Hafid</span>
+    </header>
+    <div class="content">
+      <label>Pesan</label>
+      <textarea id="text" rows="3"></textarea>
+      <label>Kunci</label>
+      <input type="text" id="key" />
+      <button onclick="processXOR()">ENKRIPSI</button>
+      <div class="output" id="result">Hasil akan muncul di sini...</div>
+    </div>
+    <footer>Copyright @220511118 - M Hafid Aridwan. All rights reserved.</footer>
+  </div>
+
+  <script>
+    let currentMode = 'encrypt';
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.querySelector('button').textContent = mode === 'encrypt' ? 'ENKRIPSI' : 'DEKRIPSI';
+      document.getElementById('result').textContent = 'Hasil akan muncul di sini...';
+    }
+
+    function xorCrypt(text, key, mode) {
+      let result = [];
+      let chars = [];
+
+      if (mode === 'decrypt') {
+        const regex = /\\x[0-9a-fA-F]{2}|./g;
+        chars = text.match(regex).map(t => t.startsWith("\\x") ? String.fromCharCode(parseInt(t.slice(2), 16)) : t);
+      } else {
+        text = "[VALID]" + text; 
+        chars = text.split('');
+      }
+
+      for (let i = 0; i < chars.length; i++) {
+        const char = chars[i];
+        const keyChar = key[i % key.length];
+        const xorVal = char.charCodeAt(0) ^ keyChar.charCodeAt(0);
+
+        if (xorVal >= 32 && xorVal <= 126) {
+          result.push(String.fromCharCode(xorVal));
+        } else {
+          result.push("\\x" + xorVal.toString(16).padStart(2, '0'));
+        }
+      }
+
+      return result.join('');
+    }
+
+    function processXOR() {
+      const text = document.getElementById("text").value;
+      const key = document.getElementById("key").value;
+      const resultDiv = document.getElementById("result");
+
+      if (!text || !key) {
+        alert("Teks dan kunci tidak boleh kosong!");
+        return;
+      }
+
+      const result = xorCrypt(text, key, currentMode);
+
+      if (currentMode === 'decrypt') {
+        if (!result.startsWith("[VALID]")) {
+          resultDiv.textContent = "❌ Kunci salah atau data tidak valid!";
+        } else {
+          const clean = result.replace("[VALID]", "");
+          resultDiv.textContent = "✅ HASIL DEKRIPSI: " + clean;
+        }
+      } else {
+        resultDiv.textContent = "🔐 HASIL ENKRIPSI: " + result;
+      }
+    }
+  </script>
+</body>
+</html>
